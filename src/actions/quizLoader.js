@@ -17,7 +17,6 @@ async function getCurrentUser() {
 }
 
 export async function loadPreviewQuiz() {
-  await new Promise((resolve) => setTimeout(resolve, 10000));
   try {
     const quiz = await db.quiz.findMany({
       where: { public: true },
@@ -56,7 +55,6 @@ export async function loadPreviewQuiz() {
 }
 
 export async function loadQuizById(quizId) {
-  await new Promise((resolve) => setTimeout(resolve, 10000));
   try {
     const quiz = await db.quiz.findUnique({
       where: { id: quizId },

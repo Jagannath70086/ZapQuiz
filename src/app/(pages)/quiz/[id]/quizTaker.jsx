@@ -69,7 +69,7 @@ export default function QuizPage({ myQuiz }) {
     setCurrentPhase("quiz");
     setQuizStartTime(new Date());
     setVisitedQuestions(new Set([0]));
-    startQuizDb(quiz.id)
+    startQuizDb(quiz.id);
   };
 
   const handleAnswerChange = (questionId, selectedOptions) => {
@@ -100,7 +100,7 @@ export default function QuizPage({ myQuiz }) {
 
   const handleSubmitQuiz = async () => {
     setIsSubmitting(true);
-    // Simulate submission delay
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setCurrentPhase("results");
     setShowResults(true);
@@ -117,7 +117,6 @@ export default function QuizPage({ myQuiz }) {
       const correctAnswers = question.correct;
 
       if (correctAnswers.length > 1) {
-        // Multiple choice with partial scoring
         const correctSelected = userAnswer.filter((ans) =>
           correctAnswers.includes(ans)
         );
@@ -131,7 +130,6 @@ export default function QuizPage({ myQuiz }) {
         );
         earnedPoints += partialScore * question.points;
       } else {
-        // Single choice
         if (
           userAnswer.length === correctAnswers.length &&
           userAnswer.every((ans) => correctAnswers.includes(ans))
@@ -176,7 +174,6 @@ export default function QuizPage({ myQuiz }) {
   if (currentPhase === "instructions") {
     return (
       <div className="min-h-screen px-4 py-8 bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-100 dark:from-orange-950 dark:via-yellow-900 dark:to-amber-900 relative overflow-hidden">
-        
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-orange-400/10 rounded-full blur-3xl"></div>
@@ -184,7 +181,6 @@ export default function QuizPage({ myQuiz }) {
         </div>
 
         <div className="max-w-4xl mx-auto relative z-10">
-          
           <button
             onClick={() => window.history.back()}
             className="mb-6 flex items-center gap-2 text-amber-700 dark:text-amber-300 hover:text-amber-800 dark:hover:text-amber-200 transition-colors duration-200"
@@ -193,7 +189,6 @@ export default function QuizPage({ myQuiz }) {
             <span className="font-medium">Back to Quizzes</span>
           </button>
 
-          
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-lg">
               <BookOpen className="w-10 h-10 text-white" />
@@ -206,7 +201,6 @@ export default function QuizPage({ myQuiz }) {
             </p>
           </div>
 
-          
           <div className="backdrop-blur-xl bg-gradient-to-br from-white/25 via-white/20 to-white/10 dark:from-orange-900/40 dark:via-orange-800/30 dark:to-yellow-900/20 border border-amber-200/30 dark:border-amber-700/30 rounded-3xl p-8 shadow-2xl mb-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
               <div className="text-center">
@@ -374,7 +368,6 @@ export default function QuizPage({ myQuiz }) {
   if (currentPhase === "quiz") {
     return (
       <div className="min-h-screen px-2 sm:px-4 py-4 sm:py-8 bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-100 dark:from-orange-950 dark:via-yellow-900 dark:to-amber-900">
-        {/* Header with Timer */}
         <div className="max-w-6xl mx-auto mb-4 sm:mb-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 backdrop-blur-xl bg-white/20 dark:bg-orange-900/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-amber-200/30 dark:border-amber-700/30 shadow-lg">
             <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
@@ -404,7 +397,6 @@ export default function QuizPage({ myQuiz }) {
 
         <div className="max-w-6xl mx-auto">
           <div className="flex gap-2 sm:gap-6">
-            {/* Question Navigation Sidebar - Hidden on mobile */}
             <div className="hidden lg:block w-64 flex-shrink-0">
               <div className="backdrop-blur-xl bg-white/20 dark:bg-orange-900/30 rounded-2xl p-6 border border-amber-200/30 dark:border-amber-700/30 shadow-lg sticky top-6">
                 <h3 className="text-lg font-semibold text-amber-700 dark:text-yellow-400 mb-4">
@@ -449,9 +441,7 @@ export default function QuizPage({ myQuiz }) {
               </div>
             </div>
 
-            {/* Main Content */}
             <div className="flex-1 min-w-0">
-              {/* Progress Bar */}
               <div className="mb-4 sm:mb-6">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs sm:text-sm font-medium text-amber-700 dark:text-amber-300">
@@ -477,7 +467,6 @@ export default function QuizPage({ myQuiz }) {
                 </div>
               </div>
 
-              {/* Mobile Question Navigation */}
               <div className="lg:hidden mb-4 sm:mb-6">
                 <div className="backdrop-blur-xl bg-white/20 dark:bg-orange-900/30 rounded-xl p-3 sm:p-4 border border-amber-200/30 dark:border-amber-700/30 shadow-lg">
                   <h3 className="text-sm font-semibold text-amber-700 dark:text-yellow-400 mb-3">
@@ -508,9 +497,7 @@ export default function QuizPage({ myQuiz }) {
                 </div>
               </div>
 
-              {/* Question Card */}
               <div className="backdrop-blur-xl bg-gradient-to-br from-white/25 via-white/20 to-white/10 dark:from-orange-900/40 dark:via-orange-800/30 dark:to-yellow-900/20 border border-amber-200/30 dark:border-amber-700/30 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl">
-                {/* Question */}
                 <div className="mb-6 sm:mb-8">
                   <div className="flex items-start gap-2 sm:gap-4 mb-4 sm:mb-6">
                     <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
@@ -536,7 +523,6 @@ export default function QuizPage({ myQuiz }) {
                   </div>
                 </div>
 
-                {/* Options */}
                 <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                   {currentQuestion.options.map((option, index) => {
                     const isSelected =
@@ -607,7 +593,6 @@ export default function QuizPage({ myQuiz }) {
                   })}
                 </div>
 
-                {/* Navigation */}
                 <div className="flex justify-between items-center gap-2 sm:gap-4">
                   <button
                     onClick={prevQuestion}
@@ -668,7 +653,6 @@ export default function QuizPage({ myQuiz }) {
   }
   return (
     <div className="min-h-screen px-2 sm:px-4 py-4 sm:py-8 bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-100 dark:from-orange-950 dark:via-yellow-900 dark:to-amber-900 relative overflow-hidden">
-      {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-orange-400/10 rounded-full blur-3xl"></div>
@@ -677,7 +661,6 @@ export default function QuizPage({ myQuiz }) {
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Results Header */}
         <div className="text-center mb-4 sm:mb-6 md:mb-8">
           <div className="relative inline-block mb-3 sm:mb-4 md:mb-6">
             <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center shadow-2xl">
@@ -705,9 +688,7 @@ export default function QuizPage({ myQuiz }) {
           </p>
         </div>
 
-        {/* Score Card */}
         <div className="backdrop-blur-xl bg-gradient-to-br from-white/25 via-white/20 to-white/10 dark:from-orange-900/40 dark:via-orange-800/30 dark:to-yellow-900/20 border border-amber-200/30 dark:border-amber-700/30 rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 shadow-2xl mb-4 sm:mb-6 md:mb-8">
-          {/* Score Display */}
           <div className="text-center mb-4 sm:mb-6 md:mb-8">
             <div className="relative inline-block">
               <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-amber-700 dark:text-yellow-400 mb-1 sm:mb-2">
@@ -720,7 +701,6 @@ export default function QuizPage({ myQuiz }) {
               points
             </div>
 
-            {/* Performance Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-3 sm:mb-4 md:mb-6">
               <div className="bg-amber-100/30 dark:bg-amber-900/20 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4">
                 <div className="text-sm sm:text-base md:text-lg lg:text-2xl font-bold text-amber-700 dark:text-yellow-400">
@@ -782,7 +762,6 @@ export default function QuizPage({ myQuiz }) {
             )}
           </div>
 
-          {/* Question Review */}
           {quiz.showCorrectAnswers && (
             <div className="space-y-3 sm:space-y-4 md:space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
@@ -812,7 +791,6 @@ export default function QuizPage({ myQuiz }) {
                     userAnswer.length === question.correct.length &&
                     userAnswer.every((ans) => question.correct.includes(ans));
 
-                  // Calculate partial score for multiple choice
                   let partialScore = 0;
                   if (question.correct.length > 1) {
                     const correctSelected = userAnswer.filter((ans) =>
@@ -911,7 +889,6 @@ export default function QuizPage({ myQuiz }) {
             </div>
           )}
 
-          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center mt-4 sm:mt-6 md:mt-8">
             {quiz.allowRetake && (
               <button
@@ -944,7 +921,6 @@ export default function QuizPage({ myQuiz }) {
           </div>
         </div>
 
-        {/* Motivational Message */}
         <div className="text-center">
           <div className="backdrop-blur-xl bg-gradient-to-br from-white/15 via-white/10 to-white/5 dark:from-orange-900/30 dark:via-orange-800/20 dark:to-yellow-900/10 border border-amber-200/20 dark:border-amber-700/20 rounded-2xl p-3 sm:p-4 md:p-6 shadow-lg">
             <p className="text-amber-700 dark:text-amber-300 text-sm sm:text-base md:text-lg italic leading-relaxed">

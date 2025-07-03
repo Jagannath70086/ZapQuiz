@@ -19,13 +19,12 @@ export default function Login() {
         </div>
 
         <div className="flex items-center justify-center p-4 relative overflow-hidden">
-      
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-10 left-20 w-96 h-96 bg-gradient-to-r from-orange-400/15 to-red-400/15 rounded-full blur-3xl" />
-        <div className="absolute top-40 left-1/4 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl" />
-      </div>
-        <LoginForm />
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-10 left-20 w-96 h-96 bg-gradient-to-r from-orange-400/15 to-red-400/15 rounded-full blur-3xl" />
+            <div className="absolute top-40 left-1/4 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl" />
+          </div>
+          <LoginForm />
         </div>
 
         <div className="text-center mt-8">

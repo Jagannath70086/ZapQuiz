@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 
-
 const passwordRequirements = new RegExp(
   "^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-={}\\[\\]:\";'<>?,./]).{8,}$"
 );
@@ -14,7 +13,10 @@ const userSchema = z
     name: z
       .string()
       .min(1, "Name is required")
-      .regex(/^[a-zA-Z\s]+$/, "Name must not contain special characters or numbers"),
+      .regex(
+        /^[a-zA-Z\s]+$/,
+        "Name must not contain special characters or numbers"
+      ),
     email: z.string().email("Invalid email address"),
     password: z
       .string()
@@ -95,6 +97,4 @@ export async function registerUser(prevState, formData) {
   }
 }
 
-export async function socialLogin(
-  provider
-) {}
+export async function socialLogin(provider) {}

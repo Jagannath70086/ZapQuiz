@@ -8,122 +8,116 @@ datasource db {
 }
 
 model User {
-  id         String     @id @default(auto()) @map("_id") @db.ObjectId
-  name       String?
-  email      String     @unique
-  password   String
-  avatar     String?    
-  role       UserRole   @default(USER)
-  isActive   Boolean    @default(true)
-  
-  // Relations
-  quizzes    Quiz[]     @relation("CreatedQuizzes")
-  attempts   Attempt[]
-  reports    Report[]
-  favorites  Favorite[] 
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String?
+  email    String   @unique
+  password String
+  bio      String
+  avatar   String?
+  role     UserRole @default(USER)
+  isActive Boolean  @default(true)
 
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  quizzes   Quiz[]     @relation("CreatedQuizzes")
+  attempts  Attempt[]
+  reports   Report[]
+  favorites Favorite[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
 
 model Quiz {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId
-  title        String
-  description  String?
-  questions    Question[]
-  createdBy    User        @relation(fields: [createdById], references: [id], name: "CreatedQuizzes")
-  createdById  String      @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+  questions   Question[]
+  createdBy   User       @relation(fields: [createdById], references: [id], name: "CreatedQuizzes")
+  createdById String     @db.ObjectId
 
-  // Quiz properties
-  tags         String[]    // example ["math", "science"]
-  difficulty   Difficulty  @default(MEDIUM)
-  timeLimit    Int?        
-  public       Boolean     @default(true)  
-  
+  tags       String[]
+  difficulty Difficulty @default(MEDIUM)
+  timeLimit  Int?
+  public     Boolean    @default(true)
 
-  category     String?     // like "Education", "Entertainment"
-  language     String      @default("en")
-  passScore    Int?        
-  allowRetake  Boolean     @default(true)
-  shuffleQuestions Boolean @default(false)
-  shuffleOptions   Boolean @default(false)
+  category           String?
+  language           String  @default("en")
+  passScore          Int?
+  allowRetake        Boolean @default(true)
+  shuffleQuestions   Boolean @default(false)
+  shuffleOptions     Boolean @default(false)
   showCorrectAnswers Boolean @default(true)
 
-
-  totalAttempts Int        @default(0)
+  totalAttempts Int    @default(0)
   averageScore  Float?
-  
-  // Relations
-  attempts     Attempt[]
-  reports      Report[]
-  favorites    Favorite[]
 
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  attempts  Attempt[]
+  reports   Report[]
+  favorites Favorite[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("quizzes")
 }
 
 type Question {
-  id           String     @default(cuid())
-  text         String
-  options      String[]
-  correct      String[]   
-  type         QuestionType @default(MCQ)
-  explanation  String?
-  points       Int        @default(1) 
-  imageUrl     String?    
-  order        Int        
+  id          String       @default(cuid())
+  text        String
+  options     String[]
+  correct     String[]
+  type        QuestionType @default(MCQ)
+  explanation String?
+  points      Int          @default(1)
+  imageUrl    String?
+  order       Int
 }
 
 model Attempt {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String      @db.ObjectId
-  quizId     String      @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  quizId     String   @db.ObjectId
   answers    Answer[]
-  score      Int         
-  percentage Float       
-  passed     Boolean?    
-  timeSpent  Int?        
-  
-  startedAt  DateTime    @default(now())
-  endedAt    DateTime?
-  submittedAt DateTime?  
+  score      Int
+  percentage Float
+  passed     Boolean?
+  timeSpent  Int?
 
-  // Relations
-  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  quiz       Quiz        @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  startedAt   DateTime  @default(now())
+  endedAt     DateTime?
+  submittedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
 
   @@map("attempts")
 }
 
 type Answer {
   questionId String
-  selected   String[]   
+  selected   String[]
   isCorrect  Boolean
-  points     Int        @default(0) 
-  timeSpent  Int?       
+  points     Int      @default(0)
+  timeSpent  Int?
 }
 
 model Report {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  userId       String     @db.ObjectId
-  quizId       String     @db.ObjectId
-  questionId   String?    
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String       @db.ObjectId
+  quizId       String       @db.ObjectId
+  questionId   String?
   questionText String
   reason       ReportReason
-  description  String?    
-  resolved     Boolean    @default(false)
-  resolvedBy   String?    @db.ObjectId // Admin who resolved (hehe me)
+  description  String?
+  resolved     Boolean      @default(false)
+  resolvedBy   String?      @db.ObjectId
   resolvedAt   DateTime?
-  
-  createdAt    DateTime   @default(now())
 
-  // Relations
-  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  quiz         Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
 
   @@map("reports")
 }
@@ -142,14 +136,14 @@ model Favorite {
 }
 
 model Category {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  name        String @unique
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String  @unique
   description String?
-  color       String? 
-  icon        String? 
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  color       String?
+  icon        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("categories")
 }
@@ -167,10 +161,10 @@ enum Difficulty {
 }
 
 enum QuestionType {
-  MCQ          
-  TRUE_FALSE   
-  FILL_BLANK   
-  ESSAY        // Essay question (for future)
+  MCQ
+  TRUE_FALSE
+  FILL_BLANK
+  ESSAY
 }
 
 enum ReportReason {

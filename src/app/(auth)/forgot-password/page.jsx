@@ -9,7 +9,9 @@ export default function ForgotPassword() {
           <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
           </div>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Check your inbox</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
+            Check your inbox
+          </h2>
           <p className="text-orange-700 dark:text-orange-200 mb-6">
             We've sent a password reset link to{" "}
             <span className="font-medium">{"email"}</span>. Please check your
@@ -42,14 +44,17 @@ export default function ForgotPassword() {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500 to-yellow-500 mb-4 shadow-lg shadow-orange-500/30">
             <span className="text-white text-xl font-bold">Q</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">Forgot Password</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">
+            Forgot Password
+          </h1>
           <p className="text-orange-700 dark:text-orange-200 mt-2 text-lg">
             Enter your email and we'll send you a reset link
           </p>
           <div className="mt-6 text-orange-800 dark:text-orange-200 bg-orange-100/80 dark:bg-orange-900/40 border border-orange-300 dark:border-orange-600 rounded-xl px-4 py-4 flex items-center justify-center text-sm backdrop-blur-sm">
             <AlertCircle className="h-5 w-5 mr-3 flex-shrink-0 text-orange-600 dark:text-orange-400" />
             <span className="font-medium">
-              Password reset via email is not supported yet. Please create a new account.
+              Password reset via email is not supported yet. Please create a new
+              account.
             </span>
           </div>
         </div>

@@ -134,10 +134,9 @@ export default function NavBar({ user }) {
       {/* Mobile Floating Navigation */}
       <div className="md:hidden fixed bottom-5 left-4 right-4 z-50">
         <div className="flex items-center justify-between mx-1">
-          
           <div className="flex items-center justify-between bg-slate-900/80 backdrop-blur-xl border border-orange-400/20 rounded-full shadow-xl px-3 py-2 w-[68vw]">
             {navItems.map((item) => {
-              if(item.id == "quizs") return null;
+              if (item.id == "quizs") return null;
               const Icon = item.icon;
               return (
                 <Link
@@ -162,7 +161,7 @@ export default function NavBar({ user }) {
           </div>
 
           <Link
-          key={"quizs"}
+            key={"quizs"}
             href="/quizs"
             className={`flex flex-col items-center justify-center p-2.5 rounded-full backdrop-blur-xl border border-orange-400/30 shadow-xl transition-all duration-300 group ${
               isActive("/quizs")
@@ -177,7 +176,6 @@ export default function NavBar({ user }) {
               <span className="absolute -inset-1 rounded-full border-2 border-yellow-400 animate-ping opacity-50" />
             )}
           </Link>
-          
         </div>
       </div>
 

@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
         <div className="absolute top-20 right-20 w-72 h-72 bg-orange-500/10 dark:bg-orange-400/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-10 left-20 w-96 h-96 bg-yellow-500/10 dark:bg-yellow-400/15 rounded-full blur-3xl" />
         <div className="absolute top-40 left-1/4 w-64 h-64 bg-amber-400/10 dark:bg-amber-400/10 rounded-full blur-3xl" />
-        
+
         {/* Dot Pattern */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
           <div
@@ -20,12 +20,16 @@ export default function RootLayout({ children }) {
             }}
           ></div>
         </div>
-        
+
         {/* Diagonal Lines for added texture */}
         <div className="absolute inset-0 opacity-5 dark:opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 50px, #f59e0b 50px, #f59e0b 52px)',
-          }}></div>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(45deg, transparent, transparent 50px, #f59e0b 50px, #f59e0b 52px)",
+            }}
+          ></div>
         </div>
       </div>
 

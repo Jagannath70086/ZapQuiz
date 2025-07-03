@@ -136,26 +136,29 @@ export default function TodoDashboard({ user, todos: initialTodos }) {
         toast.success(
           `Task "${todo.title}" marked as ${
             !todo.completed ? "completed" : "pending"
-          }`, {
-          duration: 3000,
-          style: {
-            background: "rgba(0, 0, 0, 0.8)",
-            color: "#fff",
-          },
-        }
+          }`,
+          {
+            duration: 3000,
+            style: {
+              background: "rgba(0, 0, 0, 0.8)",
+              color: "#fff",
+            },
+          }
         );
       } else {
         setTodos(previousTodos);
         toast.error(
           `Failed to mark task "${todo.title}" as ${
             !todo.completed ? "completed" : "pending"
-          }`, {
-          duration: 3000,
-          style: {
-            background: "rgba(0, 0, 0, 0.8)",
-            color: "#fff",
-          },
-        });
+          }`,
+          {
+            duration: 3000,
+            style: {
+              background: "rgba(0, 0, 0, 0.8)",
+              color: "#fff",
+            },
+          }
+        );
       }
     } catch (error) {
       setTodos(previousTodos);
@@ -564,7 +567,6 @@ export default function TodoDashboard({ user, todos: initialTodos }) {
         </div>
       </div>
 
-      {/* Add New Task Modal */}
       <Modal show={showAddForm} onClose={() => setShowAddForm(false)}>
         <div className="backdrop-blur-xl bg-slate-900/95 rounded-2xl border border-white/10 shadow-2xl max-w-md mx-auto w-full">
           <div className="relative p-6 border-b border-white/10 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-transparent">

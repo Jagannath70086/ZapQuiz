@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 export default function Modal({ children, show, onClose }) {
   const [mounted, setMounted] = useState(false);
@@ -9,12 +9,12 @@ export default function Modal({ children, show, onClose }) {
   useEffect(() => {
     setMounted(true);
     if (show) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [show]);
 

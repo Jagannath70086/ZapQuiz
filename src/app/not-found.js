@@ -8,7 +8,8 @@ function Error({ statusCode }) {
     if (statusCode === 404) {
       return {
         title: "Page Not Found",
-        description: "The page you're looking for doesn't exist or has been moved.",
+        description:
+          "The page you're looking for doesn't exist or has been moved.",
         code: "404",
       };
     } else if (statusCode === 500) {
@@ -40,7 +41,6 @@ function Error({ statusCode }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-100 to-amber-100 dark:from-yellow-950 dark:via-orange-900 dark:to-amber-900 flex items-center justify-center relative overflow-hidden">
-      {/* Bubbles */}
       <div className="absolute top-20 right-20 w-72 h-72 bg-orange-400/30 rounded-full blur-3xl" />
       <div className="absolute bottom-10 left-20 w-96 h-96 bg-yellow-400/30 rounded-full blur-3xl" />
       <div className="absolute top-40 left-1/4 w-64 h-64 bg-amber-300/20 rounded-full blur-3xl" />
@@ -48,7 +48,8 @@ function Error({ statusCode }) {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "radial-gradient(circle at 2px 2px, #f59e0b 1px, transparent 0)",
+            backgroundImage:
+              "radial-gradient(circle at 2px 2px, #f59e0b 1px, transparent 0)",
             backgroundSize: "40px 40px",
           }}
         ></div>
@@ -56,7 +57,6 @@ function Error({ statusCode }) {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl mx-auto text-center">
-          {/* Icon Bubble */}
           <div className="mb-8">
             <div className="relative inline-block">
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-orange-100 to-yellow-100 dark:from-orange-800 dark:to-yellow-800 flex items-center justify-center mb-6 mx-auto border border-orange-200 dark:border-orange-600">
@@ -70,7 +70,6 @@ function Error({ statusCode }) {
             </div>
           </div>
 
-          {/* Message */}
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-500 dark:from-orange-300 dark:to-yellow-300">
@@ -82,7 +81,6 @@ function Error({ statusCode }) {
             </p>
           </div>
 
-          {/* Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <Link
               href="/"
@@ -109,11 +107,13 @@ function Error({ statusCode }) {
             </button>
           </div>
 
-          {/* Help Box */}
           <div className="bg-white/90 dark:bg-yellow-950 backdrop-blur-sm rounded-xl border border-orange-200 dark:border-amber-800 p-6 max-w-md mx-auto">
-            <h3 className="font-semibold mb-2 text-orange-800 dark:text-yellow-300">Need Help?</h3>
+            <h3 className="font-semibold mb-2 text-orange-800 dark:text-yellow-300">
+              Need Help?
+            </h3>
             <p className="text-sm text-orange-900 dark:text-yellow-200 mb-4">
-              If you continue to experience issues, please contact our support team.
+              If you continue to experience issues, please contact our support
+              team.
             </p>
             <div className="flex items-center justify-center gap-4 text-sm">
               <Link

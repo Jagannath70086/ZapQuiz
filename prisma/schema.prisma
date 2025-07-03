@@ -1,0 +1,182 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  name       String?
+  email      String     @unique
+  password   String
+  avatar     String?    
+  role       UserRole   @default(USER)
+  isActive   Boolean    @default(true)
+  
+  // Relations
+  quizzes    Quiz[]     @relation("CreatedQuizzes")
+  attempts   Attempt[]
+  reports    Report[]
+  favorites  Favorite[] 
+
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@map("users")
+}
+
+model Quiz {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String?
+  questions    Question[]
+  createdBy    User        @relation(fields: [createdById], references: [id], name: "CreatedQuizzes")
+  createdById  String      @db.ObjectId
+
+  // Quiz properties
+  tags         String[]    // example ["math", "science"]
+  difficulty   Difficulty  @default(MEDIUM)
+  timeLimit    Int?        
+  public       Boolean     @default(true)  
+  
+
+  category     String?     // like "Education", "Entertainment"
+  language     String      @default("en")
+  passScore    Int?        
+  allowRetake  Boolean     @default(true)
+  shuffleQuestions Boolean @default(false)
+  shuffleOptions   Boolean @default(false)
+  showCorrectAnswers Boolean @default(true)
+
+
+  totalAttempts Int        @default(0)
+  averageScore  Float?
+  
+  // Relations
+  attempts     Attempt[]
+  reports      Report[]
+  favorites    Favorite[]
+
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@map("quizzes")
+}
+
+type Question {
+  id           String     @default(cuid())
+  text         String
+  options      String[]
+  correct      String[]   
+  type         QuestionType @default(MCQ)
+  explanation  String?
+  points       Int        @default(1) 
+  imageUrl     String?    
+  order        Int        
+}
+
+model Attempt {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String      @db.ObjectId
+  quizId     String      @db.ObjectId
+  answers    Answer[]
+  score      Int         
+  percentage Float       
+  passed     Boolean?    
+  timeSpent  Int?        
+  
+  startedAt  DateTime    @default(now())
+  endedAt    DateTime?
+  submittedAt DateTime?  
+
+  // Relations
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz       Quiz        @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("attempts")
+}
+
+type Answer {
+  questionId String
+  selected   String[]   
+  isCorrect  Boolean
+  points     Int        @default(0) 
+  timeSpent  Int?       
+}
+
+model Report {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String     @db.ObjectId
+  quizId       String     @db.ObjectId
+  questionId   String?    
+  questionText String
+  reason       ReportReason
+  description  String?    
+  resolved     Boolean    @default(false)
+  resolvedBy   String?    @db.ObjectId // Admin who resolved (hehe me)
+  resolvedAt   DateTime?
+  
+  createdAt    DateTime   @default(now())
+
+  // Relations
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz         Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+model Favorite {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  quizId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, quizId])
+  @@map("favorites")
+}
+
+model Category {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String @unique
+  description String?
+  color       String? 
+  icon        String? 
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("categories")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum QuestionType {
+  MCQ          
+  TRUE_FALSE   
+  FILL_BLANK   
+  ESSAY        // Essay question (for future)
+}
+
+enum ReportReason {
+  INAPPROPRIATE_CONTENT
+  INCORRECT_ANSWER
+  SPELLING_ERROR
+  DUPLICATE_QUESTION
+  OTHER
+}
